@@ -7,7 +7,7 @@ function StartGameScreen() {
             <TextInput style={styles.input} maxLength={2} keyboardType={'number-pad'} />
             <View style={styles.actionButtonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Rest</PrimaryButton>
+                    <PrimaryButton>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
                     <PrimaryButton>Confirm</PrimaryButton>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
        marginTop: 100,
        marginHorizontal: 24,
        padding: 16,
-       backgroundColor: '#4e0329',
+       backgroundColor: '#3b021f',
        borderRadius: 8,
        elevation: 20,
        shadowColor: 'black',
