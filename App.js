@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet, SafeAreaView, Platform } from 'react-native';
 import StartGameScreen from './screens/StartGameScreen';
 import {LinearGradient} from 'expo-linear-gradient';
 import GameScreen from './screens/GameScreen';
@@ -26,7 +26,9 @@ export default function App() {
               style={style.rootScreen}
               imageStyle={style.backgroundImage}
           >
-              {screen}
+              <SafeAreaView style={[style.rootScreen, style.androidContainer]}>
+                  {screen}
+              </SafeAreaView>
           </ImageBackground>
       </LinearGradient>
   );
@@ -38,5 +40,8 @@ const style = StyleSheet.create({
   },
   backgroundImage: {
     opacity: 0.15
+  },
+  androidContainer: {
+    paddingTop: Platform.OS === 'android' ? 35 : 0
   }
 });
