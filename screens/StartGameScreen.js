@@ -1,4 +1,4 @@
-import {TextInput, View, StyleSheet, Alert, Text} from 'react-native';
+import {TextInput, View, StyleSheet, Alert, useWindowDimensions, KeyboardAvoidingView, ScrollView} from 'react-native';
 import PrimaryButton from '../components/UI/PrimaryButton';
 import {useState} from 'react';
 import Colors from '../constants/colors';
@@ -9,6 +9,8 @@ import InstructionText from '../components/UI/InstructionText';
 function StartGameScreen({onPickNumber}) {
 
     const [enteredNumber, setEnteredNumber] = useState('');
+
+    const height = useWindowDimensions().height;
 
     function numberInputHandler(enteredText) {
         setEnteredNumber(enteredText);
@@ -32,50 +34,61 @@ function StartGameScreen({onPickNumber}) {
         onPickNumber(chosenNumber);
     }
 
+    const marginTopDistance = height < 400 ? 30 : 100;
+
     return (
-        <View style={styles.container}>
-            <Title>Guess My Number</Title>
-            <Card>
-                <InstructionText>Enter a number</InstructionText>
-                <TextInput
-                    style={styles.input}
-                    maxLength={2}
-                    keyboardType={'number-pad'}
-                    value={enteredNumber}
-                    onChangeText={numberInputHandler}/>
-                <View style={styles.actionButtonsContainer}>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-                    </View>
+        <ScrollView style={styles.screen}>
+            <KeyboardAvoidingView style={styles.screen} behavior="position">
+                <View style={[styles.container, {marginTop: marginTopDistance}]}>
+                    <Title>Guess My Number</Title>
+                    <Card>
+                        <InstructionText>Enter a number</InstructionText>
+                        <TextInput
+                            style={styles.input}
+                            maxLength={2}
+                            keyboardType={'number-pad'}
+                            value={enteredNumber}
+                            onChangeText={numberInputHandler}/>
+                        <View style={styles.actionButtonsContainer}>
+                            <View style={styles.buttonContainer}>
+                                <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+                            </View>
+                        </View>
+                    </Card>
                 </View>
-            </Card>
-        </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     );
 }
 
+// const deviceHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
-   container: {
-       flex: 1,
-       marginTop: 100,
-       alignItems: 'center'
-   },
-   inputContainer: {
-       justifyContent: 'center',
-       alignItems: 'center',
-       marginTop: 36,
-       marginHorizontal: 24,
-       padding: 16,
-       backgroundColor: Colors.primary800,
-       borderRadius: 8,
-       elevation: 20,
-       shadowColor: 'black',
-       shadowOffset: {width: 0, height: 2},
-       shadowRadius: 6,
-       shadowOpacity: 0.25
-   },
+    screen: {
+        flex: 1
+    },
+    container: {
+        flex: 1,
+        marginTop: 100,
+        alignItems: 'center'
+    },
+    inputContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 36,
+        marginHorizontal: 24,
+        padding: 16,
+        backgroundColor: Colors.primary800,
+        borderRadius: 8,
+        elevation: 20,
+        shadowColor: 'black',
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 6,
+        shadowOpacity: 0.25
+    },
     input: {
         height: 50,
         width: 50,
@@ -88,10 +101,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     actionButtonsContainer: {
-       flexDirection: 'row'
+        flexDirection: 'row'
     },
     buttonContainer: {
-       flex: 1
+        flex: 1
     }
 });
 
