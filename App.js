@@ -7,6 +7,7 @@ import Colors from './constants/colors';
 import GameOverScreen from './screens/GameOverScreen';
 import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import {StatusBar} from 'expo-status-bar';
 
 export default function App() {
 
@@ -49,18 +50,21 @@ export default function App() {
   }
 
   return (
-      <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={style.rootScreen}>
-          <ImageBackground
-              source={require('./assets/background.png')}
-              resizeMode="cover"
-              style={style.rootScreen}
-              imageStyle={style.backgroundImage}
-          >
-              <SafeAreaView style={[style.rootScreen, style.androidContainer]}>
-                  {screen}
-              </SafeAreaView>
-          </ImageBackground>
-      </LinearGradient>
+      <>
+          <StatusBar style={'light'}/>
+          <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={style.rootScreen}>
+              <ImageBackground
+                  source={require('./assets/background.png')}
+                  resizeMode="cover"
+                  style={style.rootScreen}
+                  imageStyle={style.backgroundImage}
+              >
+                  <SafeAreaView style={[style.rootScreen, style.androidContainer]}>
+                      {screen}
+                  </SafeAreaView>
+              </ImageBackground>
+          </LinearGradient>
+      </>
   );
 }
 
